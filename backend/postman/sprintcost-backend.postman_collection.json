@@ -1,0 +1,643 @@
+{
+  "info": {
+    "_postman_id": "b06ef9ae-1f3c-4a69-9714-8f2ee65f2dd1",
+    "name": "Sprint Cost Backend",
+    "description": "Happy-path Postman collection for the Sprint Cost backend. Run the requests top-to-bottom so the saved collection variables can feed later requests. Prediction endpoints require the configured Python predictor and model artifacts to be available.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "skillBackendId",
+      "value": ""
+    },
+    {
+      "key": "skillQaId",
+      "value": ""
+    },
+    {
+      "key": "teamId",
+      "value": ""
+    },
+    {
+      "key": "developerId",
+      "value": ""
+    },
+    {
+      "key": "sprintId",
+      "value": ""
+    },
+    {
+      "key": "taskId",
+      "value": ""
+    },
+    {
+      "key": "assignmentId",
+      "value": ""
+    },
+    {
+      "key": "initialPredictionId",
+      "value": ""
+    },
+    {
+      "key": "midPredictionId",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Create Backend Skill",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 201\", function () {",
+              "  pm.response.to.have.status(201);",
+              "});",
+              "",
+              "const data = pm.response.json();",
+              "pm.test(\"Skill id is returned\", function () {",
+              "  pm.expect(data.id).to.exist;",
+              "});",
+              "",
+              "pm.collectionVariables.set(\"skillBackendId\", String(data.id));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Spring Boot\",\n  \"description\": \"Backend API development\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/skills",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "skills"
+          ]
+        },
+        "description": "Creates a reusable backend skill and saves the id as skillBackendId."
+      },
+      "response": []
+    },
+    {
+      "name": "Create QA Skill",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 201\", function () {",
+              "  pm.response.to.have.status(201);",
+              "});",
+              "",
+              "const data = pm.response.json();",
+              "pm.test(\"Skill id is returned\", function () {",
+              "  pm.expect(data.id).to.exist;",
+              "});",
+              "",
+              "pm.collectionVariables.set(\"skillQaId\", String(data.id));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"QA Automation\",\n  \"description\": \"Test automation and regression coverage\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/skills",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "skills"
+          ]
+        },
+        "description": "Creates a second skill to cover enum and list-based request payloads."
+      },
+      "response": []
+    },
+    {
+      "name": "Create Team",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 201\", function () {",
+              "  pm.response.to.have.status(201);",
+              "});",
+              "",
+              "const data = pm.response.json();",
+              "pm.test(\"Team id is returned\", function () {",
+              "  pm.expect(data.id).to.exist;",
+              "});",
+              "",
+              "pm.collectionVariables.set(\"teamId\", String(data.id));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"code\": \"ALPHA\",\n  \"name\": \"Alpha Squad\",\n  \"description\": \"Pilot sprint-cost team\",\n  \"developerIds\": []\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/teams",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "teams"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Developer",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 201\", function () {",
+              "  pm.response.to.have.status(201);",
+              "});",
+              "",
+              "const data = pm.response.json();",
+              "pm.test(\"Developer id is returned\", function () {",
+              "  pm.expect(data.id).to.exist;",
+              "});",
+              "",
+              "pm.collectionVariables.set(\"developerId\", String(data.id));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Nimal Perera\",\n  \"seniority\": \"SENIOR\",\n  \"hourlyRate\": 45.00,\n  \"allocationPercent\": 100.0,\n  \"role\": \"BACKEND\",\n  \"teamId\": \"{{teamId}}\",\n  \"skills\": [\n    {\n      \"skillId\": \"{{skillBackendId}}\",\n      \"proficiencyLevel\": 5\n    },\n    {\n      \"skillId\": \"{{skillQaId}}\",\n      \"proficiencyLevel\": 3\n    }\n  ],\n  \"calendarEntries\": [\n    {\n      \"entryDate\": \"2026-05-07\",\n      \"entryType\": \"PARTIAL_DAY\",\n      \"availabilityFactor\": 0.5,\n      \"note\": \"Half-day client workshop\"\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/developers",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "developers"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Sprint",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 201\", function () {",
+              "  pm.response.to.have.status(201);",
+              "});",
+              "",
+              "const data = pm.response.json();",
+              "pm.test(\"Sprint id is returned\", function () {",
+              "  pm.expect(data.id).to.exist;",
+              "});",
+              "",
+              "pm.collectionVariables.set(\"sprintId\", String(data.id));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"teamId\": \"{{teamId}}\",\n  \"name\": \"Sprint 12\",\n  \"sprintNumber\": 12,\n  \"startDate\": \"2026-05-04\",\n  \"endDate\": \"2026-05-15\",\n  \"status\": \"ACTIVE\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/sprints",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "sprints"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Task",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 201\", function () {",
+              "  pm.response.to.have.status(201);",
+              "});",
+              "",
+              "const data = pm.response.json();",
+              "pm.test(\"Task id is returned\", function () {",
+              "  pm.expect(data.id).to.exist;",
+              "});",
+              "",
+              "pm.collectionVariables.set(\"taskId\", String(data.id));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"sprintId\": \"{{sprintId}}\",\n  \"title\": \"Build sprint forecasting API\",\n  \"description\": \"Implement the API and validation layer for sprint cost predictions\",\n  \"storyPoints\": 8.0,\n  \"completedStoryPoints\": 3.0,\n  \"actualEffortMinutes\": 300,\n  \"status\": \"IN_PROGRESS\",\n  \"requiredSkillIds\": [\"{{skillBackendId}}\"]\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/tasks",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "tasks"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Assignment",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 201\", function () {",
+              "  pm.response.to.have.status(201);",
+              "});",
+              "",
+              "const data = pm.response.json();",
+              "pm.test(\"Assignment id is returned\", function () {",
+              "  pm.expect(data.id).to.exist;",
+              "});",
+              "",
+              "pm.collectionVariables.set(\"assignmentId\", String(data.id));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"taskId\": \"{{taskId}}\",\n  \"developerId\": \"{{developerId}}\",\n  \"allocatedHours\": 16.0,\n  \"overtimeHours\": 1.5,\n  \"actualEffortMinutes\": 240,\n  \"status\": \"ACTIVE\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/assignments",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "assignments"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Team Velocity",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "",
+              "const data = pm.response.json();",
+              "pm.test(\"Velocity response belongs to team\", function () {",
+              "  pm.expect(String(data.teamId)).to.eql(pm.collectionVariables.get(\"teamId\"));",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/api/teams/{{teamId}}/velocity",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "teams",
+            "{{teamId}}",
+            "velocity"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Developer Availability",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "",
+              "const data = pm.response.json();",
+              "pm.test(\"Availability response belongs to developer\", function () {",
+              "  pm.expect(String(data.developerId)).to.eql(pm.collectionVariables.get(\"developerId\"));",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/api/developers/{{developerId}}/availability?sprintId={{sprintId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "developers",
+            "{{developerId}}",
+            "availability"
+          ],
+          "query": [
+            {
+              "key": "sprintId",
+              "value": "{{sprintId}}"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Sprint Features",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "",
+              "const data = pm.response.json();",
+              "pm.test(\"Features response belongs to sprint\", function () {",
+              "  pm.expect(String(data.sprintId)).to.eql(pm.collectionVariables.get(\"sprintId\"));",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/api/sprints/{{sprintId}}/features?snapshotDate=2026-05-08",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "sprints",
+            "{{sprintId}}",
+            "features"
+          ],
+          "query": [
+            {
+              "key": "snapshotDate",
+              "value": "2026-05-08"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Initial Prediction",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 201\", function () {",
+              "  pm.response.to.have.status(201);",
+              "});",
+              "",
+              "const data = pm.response.json();",
+              "pm.test(\"Initial prediction is returned\", function () {",
+              "  pm.expect(data.id).to.exist;",
+              "  pm.expect(data.predictionType).to.eql(\"INITIAL\");",
+              "});",
+              "",
+              "pm.collectionVariables.set(\"initialPredictionId\", String(data.id));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"sprintId\": \"{{sprintId}}\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/predictions/initial",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "predictions",
+            "initial"
+          ]
+        },
+        "description": "Requires the Python prediction script and configured model artifacts."
+      },
+      "response": []
+    },
+    {
+      "name": "Update Prediction",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 201\", function () {",
+              "  pm.response.to.have.status(201);",
+              "});",
+              "",
+              "const data = pm.response.json();",
+              "pm.test(\"Mid-sprint prediction is returned\", function () {",
+              "  pm.expect(data.id).to.exist;",
+              "  pm.expect(data.predictionType).to.eql(\"MID_SPRINT\");",
+              "});",
+              "",
+              "pm.collectionVariables.set(\"midPredictionId\", String(data.id));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"sprintId\": \"{{sprintId}}\",\n  \"snapshotDate\": \"2026-05-08\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/predictions/update",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "predictions",
+            "update"
+          ]
+        },
+        "description": "Runs the mid-sprint prediction flow against a snapshot date inside the sample sprint."
+      },
+      "response": []
+    },
+    {
+      "name": "Get Predictions By Sprint",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "",
+              "const data = pm.response.json();",
+              "pm.test(\"Prediction list is returned\", function () {",
+              "  pm.expect(Array.isArray(data)).to.be.true;",
+              "  pm.expect(data.length).to.be.greaterThan(0);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/api/predictions/{{sprintId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "predictions",
+            "{{sprintId}}"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
