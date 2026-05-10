@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import Navigation from "./Navigation";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Sprint Cost Studio",
-  description: "Sprint planning and cost prediction platform",
+  title: "Human-Aware Sprint Cost Forecasting",
+  description: "Sprint planning and cost prediction platform with human factors",
 };
 
 export default function RootLayout({
@@ -13,7 +14,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Navigation />
+        {children}
+      </body>
     </html>
   );
 }

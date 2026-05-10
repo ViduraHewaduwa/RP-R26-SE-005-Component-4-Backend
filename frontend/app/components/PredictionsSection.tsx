@@ -43,14 +43,17 @@ export default function PredictionsSection({ onUpdate }: PredictionsSectionProps
     setInitialSuccess(false);
 
     try {
+      console.log("Creating initial prediction for sprint:", initialSprintId);
       const result = await createInitialPrediction({ sprintId: parseInt(initialSprintId) });
+      console.log("Prediction result:", result);
       addPrediction(result);
       setInitialSuccess(true);
       onUpdate();
     } catch (err: any) {
+      console.error("Prediction error:", err);
       setInitialError({
-        message: err.error || "Failed to create initial prediction",
-        details: err.details || [],
+        message: err.error || err.message || "Failed to create initial prediction",
+        details: err.details || [err.toString()],
       });
     } finally {
       setInitialLoading(false);
