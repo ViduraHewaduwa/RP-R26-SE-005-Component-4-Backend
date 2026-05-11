@@ -29,7 +29,7 @@ export default function Navigation() {
       <div className={styles.container}>
         <div className={styles.brand}>
           <span className={styles.logo}>💰</span>
-          <span className={styles.brandName}>Sprint Cost Studio</span>
+          <span className={styles.brandName}>AI Driven Human Aware Sprint Cost Forecasting</span>
         </div>
 
         <div className={styles.links}>

@@ -68,7 +68,7 @@ export default function DashboardPage() {
 
       {!activeSprint && (
         <div className={styles.emptyState}>
-          <h2>Welcome to Sprint Cost Studio</h2>
+          <h2>Welcome to AI Driven Human Aware Sprint Cost Forecasting</h2>
           <p>Get started by creating your first sprint</p>
           <button className={styles.primaryButton} onClick={() => router.push("/sprint")}>
             Create Your First Sprint

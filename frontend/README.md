@@ -1,9 +1,10 @@
-# Sprint Cost Studio Frontend
+# AI Driven Human Aware Sprint Cost Forecasting - Frontend
 
 This is a Next.js frontend for the Spring Boot sprint-cost backend in this repo.
 
 ## What it does
 
+- AI-powered sprint cost forecasting with human factors awareness
 - Mirrors the backend workflow in the same order as the Postman collection:
   1. Create skills
   2. Create a team
